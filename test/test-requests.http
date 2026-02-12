@@ -1,0 +1,78 @@
+# Test HTTP requests
+### use with: REST Client extension
+@apiurl = http://localhost:3000/api
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMSwidXNlcm5hbWUiOiJib2JfYnJvd24yIiwiZW1haWwiOiJib2IyQGV4YW1wbGUuY29tIiwidXNlcl9sZXZlbCI6InJlZ3VsYXIiLCJpYXQiOjE3NzA3NjA2NTEsImV4cCI6MTc3MDg0NzA1MX0.i7b1JlaqP6q_Sv4GKKb_4uYwlmGBszlvSotclJgWEVc
+
+### GET all items
+GET {{apiurl}}/items
+
+### GET item with id 1
+GET {{apiurl}}/items/1
+
+### Add new item
+POST {{apiurl}}/items
+Content-Type: application/json
+
+{"name": "Mandariini", "weight": 86}
+
+### Delete item with id 2
+DELETE {{apiurl}}/items/2
+
+### Update item with id 1
+PUT {{apiurl}}/items/1
+Content-Type: application/json
+
+{"name": "updated Omena"}
+
+##############################
+### users endpoints
+
+### Get all users
+GET {{apiurl}}/users
+
+### Register new user
+POST {{apiurl}}/users
+Content-Type: application/json
+
+{
+  "username": "bob_brown2",
+  "password": "bobSecret123",
+  "email": "bob2@example.com"
+}
+
+### User login
+POST {{apiurl}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "bob_brown2",
+  "password": "bobSecret123"
+}
+
+### Get user info by token
+GET {{apiurl}}/auth/me
+Authorization: Bearer {{token}}
+
+##############################
+### Diary entry endpoints
+
+### Get all entries
+GET {{apiurl}}/entries
+Authorization: Bearer {{token}}
+
+### Get entry by id
+GET {{apiurl}}/entries/6
+Authorization: Bearer {{token}}
+
+### Post new entry
+POST {{apiurl}}/entries
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "entry_date": "2026-02-04",
+  "mood": "really happy",
+  "weight": 66,
+  "sleep_hours": 5,
+  "notes": "normipäivä"
+}
