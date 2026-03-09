@@ -4,6 +4,7 @@ CREATE DATABASE HealthDiary;
 
 USE HealthDiary;
 
+
 CREATE TABLE Users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -23,6 +24,33 @@ CREATE TABLE DiaryEntries (
     notes TEXT,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+
+CREATE TABLE Meals (
+    meal_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    meal_name VARCHAR(120) NULL,
+    items_json JSON NOT NULL,
+    calories DECIMAL(10,2) DEFAULT 0,
+    protein DECIMAL(10,2) DEFAULT 0,
+    carbs DECIMAL(10,2) DEFAULT 0,
+    fat DECIMAL(10,2) DEFAULT 0,
+    sugar DECIMAL(10,2) DEFAULT 0,
+    fiber DECIMAL(10,2) DEFAULT 0,
+    salt DECIMAL(10,2) DEFAULT 0,
+    sodium DECIMAL(10,2) DEFAULT 0,
+    health_score INT DEFAULT 0,
+    health_label VARCHAR(20) DEFAULT 'Kohtalainen',
+    analysis TEXT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE GuestMealUsage (
+  guest_id VARCHAR(64) PRIMARY KEY,
+  usage_count INT NOT NULL DEFAULT 0,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Medications (
@@ -76,3 +104,4 @@ INSERT INTO Exercises (user_id, type, duration, intensity, date) VALUES
 (3, 'Swimming', 60, 'Low', '2024-01-18'),
 (3, 'Yoga', 50, 'Low', '2024-01-18'),
 (1, 'Weight Training', 40, 'High', '2024-01-19');
+
